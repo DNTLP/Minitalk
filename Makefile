@@ -1,5 +1,5 @@
 CC = gcc
-FLAGS	= -Wall -Wextra -Werror
+FLAGS	= -Wall -Wextra -Werror -g
 RM	= rm -f
 
 NAME_SERVER = server

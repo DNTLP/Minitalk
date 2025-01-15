@@ -1,5 +1,12 @@
 #include    "minitalk.h"
 
+int	ft_isspace(char c)
+{
+	if ((c >= 9 && c <= 13) || c == 32)
+		return (1);
+	return (0);
+}
+
 int ft_strlen(char *str)
 {
     int len;
@@ -16,8 +23,8 @@ int ft_atoi(const char *str)
     int neg;
 
     num = 0;
-    neg = -1;
-    while (*str == ' ' || *str == '\t' || *str '\n' || *str '\v' || *str '\f' || *str '\r')
+    neg = 1;
+    while (ft_isspace(*str))
         str++;
     if (*str == '-' || *str == '+')
     {

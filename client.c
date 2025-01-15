@@ -22,22 +22,41 @@ void    client_send(t_mini *talk, char *message)
     int signal;
 
     i = -1;
+	// send_length(talk, message);
     while (++i <= ft_strlen(message))
     {
-        bit_displacement = -1;
-        signal = 0;
-        while (++bit_displacement < 7)
+        bit_displacement = 7;
+        while (bit_displacement >= 0)
         {
             if ((message[i] >> bit_displacement) & 1)
                 signal = SIGUSR2;
             else
                 signal = SIGUSR1;
+			bit_displacement--;
             kill(talk->pid_server, signal);
-            usleep(200);
+            usleep(100);
         }
     }
     return ;
 }
+
+// void	send_length(t_mini *talk, char *message)
+// {
+// 	size_t	len;
+// 	int		bit_displacement;
+
+// 	len = ft_strlen(message);
+// 	bit_displacement = 15;
+// 	while (bit_displacement >= 0)
+// 	{
+// 		if ((len >> bit_displacement) & 1)
+// 			kill(talk->pid_server, SIGUSR2);
+// 		else
+// 			kill(talk->pid_server, SIGUSR1);
+// 		bit_displacement--;
+// 	}
+// 	return ;
+// }
 
 int main(int nword, char *arguments[])
 {
@@ -46,7 +65,7 @@ int main(int nword, char *arguments[])
     talk = NULL;
     if (nword != 3)
     {
-        ft_putstr("ERROR!, use \"./server\" with 3 arguments please\n");
+        ft_putstr("ERROR!, use \"./client PID \"string\"\"\n");
         exit(EXIT_FAILURE);
     }
     else
@@ -55,7 +74,7 @@ int main(int nword, char *arguments[])
         talk->pid_server = ft_atoi(arguments[1]);
         if (talk->pid_server <= 0)
         {
-            ft_putstr("ERROR!, PID is equal or less than 0\n")
+            ft_putstr("ERROR!, PID is equal or less than 0\n");
             free(talk);
             exit(EXIT_FAILURE);
         }
