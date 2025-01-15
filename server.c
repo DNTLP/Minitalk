@@ -20,7 +20,7 @@ void    server_recieve(int boolean)
     static int  bit_displacement = 0;
     static char letter = 0;
 
-    letter += ((boolean & 1) << bit_displacement++)
+    letter += ((boolean & 1) << bit_displacement++);
     if (bit_displacement == 7)
     {
         write(1, &letter, 1);
